@@ -1,0 +1,5 @@
+// Import Bootstrap overrides first (before Bootstrap itself)
+@import './bootstrap-overrides';
+
+// Import Bootstrap (will use our overridden colors)
+@import 'bootstrap/scss/bootstrap';
