@@ -18,6 +18,18 @@ export class ApartmentFilterBuilderService {
   ): Prisma.ApartmentWhereInput {
     const where: Prisma.ApartmentWhereInput = {};
 
+    // Search filter - searches across multiple fields
+    if (filters.search) {
+      const searchTerm = filters.search;
+      where.OR = [
+        { unitName: { contains: searchTerm, mode: 'insensitive' } },
+        { description: { contains: searchTerm, mode: 'insensitive' } },
+        { address: { contains: searchTerm, mode: 'insensitive' } },
+        { city: { contains: searchTerm, mode: 'insensitive' } },
+        { project: { contains: searchTerm, mode: 'insensitive' } },
+      ];
+    }
+
     // String filters with case-insensitive partial match
     if (filters.city) {
       where.city = { contains: filters.city, mode: 'insensitive' };

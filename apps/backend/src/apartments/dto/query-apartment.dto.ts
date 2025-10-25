@@ -28,6 +28,15 @@ export enum SortOrder {
 
 export class QueryApartmentDto implements SharedQueryDto {
   @ApiPropertyOptional({
+    description:
+      'Search term to search across unit name, description, address, city, and project',
+    example: 'Cairo apartment',
+  })
+  @IsOptional()
+  @IsString()
+  search?: string;
+
+  @ApiPropertyOptional({
     description: 'City filter',
     example: 'Cairo',
   })

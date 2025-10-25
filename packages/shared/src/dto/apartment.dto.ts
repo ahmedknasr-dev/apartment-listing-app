@@ -66,6 +66,7 @@ export interface ApartmentResponseDto {
  * DTO for query parameters when listing apartments
  */
 export interface ListApartmentsQueryDto {
+  search?: string;
   city?: string;
   minPrice?: number;
   maxPrice?: number;
