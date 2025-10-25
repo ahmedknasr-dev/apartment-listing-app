@@ -4,11 +4,13 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 import { AppModule } from './app.module';
 
+/**
+ * Bootstrap the NestJS application
+ */
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const logger = new Logger('Bootstrap');
 
-  // Enable global validation pipe
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,
@@ -20,13 +22,11 @@ async function bootstrap() {
     }),
   );
 
-  // Enable CORS for frontend
   app.enableCors({
     origin: process.env.FRONTEND_URL ?? 'http://localhost:3000',
     credentials: true,
   });
 
-  // Setup Swagger documentation
   const config = new DocumentBuilder()
     .setTitle('Apartment Listing API')
     .setDescription('API for managing apartment listings')

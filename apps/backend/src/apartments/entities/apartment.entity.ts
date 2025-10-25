@@ -1,5 +1,9 @@
 import { type Apartment as PrismaApartment } from '@prisma/client';
 
+/**
+ * Apartment entity representing an apartment listing in the system.
+ * Implements the Prisma Apartment model.
+ */
 export class ApartmentEntity implements PrismaApartment {
   id = '';
   unitName = '';
@@ -17,6 +21,10 @@ export class ApartmentEntity implements PrismaApartment {
   createdAt = '';
   updatedAt = '';
 
+  /**
+   * Creates an instance of ApartmentEntity.
+   * @param partial - Partial apartment data to initialize the entity
+   */
   constructor(partial: Partial<ApartmentEntity>) {
     Object.assign(this, partial);
   }

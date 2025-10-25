@@ -15,12 +15,22 @@ import {
 } from './dto';
 import { ApartmentEntity } from './entities/apartment.entity';
 
+/**
+ * Service for managing apartment business logic.
+ * Handles apartment CRUD operations and data transformation.
+ */
 @Injectable()
 export class ApartmentsService {
   private readonly logger = new Logger(ApartmentsService.name);
 
   constructor(private readonly apartmentsRepository: ApartmentsRepository) {}
 
+  /**
+   * Creates a new apartment listing.
+   * @param createApartmentDto - The apartment data to create
+   * @returns The created apartment response DTO
+   * @throws BadRequestException if creation fails
+   */
   async create(
     createApartmentDto: CreateApartmentDto,
   ): Promise<ApartmentResponseDto> {
@@ -39,6 +49,11 @@ export class ApartmentsService {
     }
   }
 
+  /**
+   * Retrieves a paginated list of apartments based on query filters.
+   * @param query - Query parameters including filters, pagination, and sorting
+   * @returns Paginated apartment response with metadata
+   */
   async findAll(
     query: QueryApartmentDto,
   ): Promise<PaginatedApartmentsResponseDto> {
@@ -63,6 +78,12 @@ export class ApartmentsService {
     };
   }
 
+  /**
+   * Retrieves a single apartment by its ID.
+   * @param id - The unique identifier of the apartment
+   * @returns The apartment response DTO
+   * @throws NotFoundException if apartment is not found
+   */
   async findOne(id: string): Promise<ApartmentResponseDto> {
     this.logger.log(`Fetching apartment with id: ${id}`);
 
@@ -75,6 +96,14 @@ export class ApartmentsService {
     return this.mapToResponseDto(apartment);
   }
 
+  /**
+   * Updates an existing apartment with the provided data.
+   * @param id - The unique identifier of the apartment to update
+   * @param updateApartmentDto - The partial apartment data to update
+   * @returns The updated apartment response DTO
+   * @throws NotFoundException if apartment is not found
+   * @throws BadRequestException if update fails
+   */
   async update(
     id: string,
     updateApartmentDto: UpdateApartmentDto,
@@ -101,6 +130,12 @@ export class ApartmentsService {
     }
   }
 
+  /**
+   * Removes an apartment from the system.
+   * @param id - The unique identifier of the apartment to remove
+   * @throws NotFoundException if apartment is not found
+   * @throws BadRequestException if removal fails
+   */
   async remove(id: string): Promise<void> {
     this.logger.log(`Removing apartment with id: ${id}`);
 
@@ -120,6 +155,11 @@ export class ApartmentsService {
     }
   }
 
+  /**
+   * Maps an ApartmentEntity to an ApartmentResponseDto.
+   * @param apartment - The apartment entity to map
+   * @returns The mapped apartment response DTO
+   */
   private mapToResponseDto(apartment: ApartmentEntity): ApartmentResponseDto {
     return {
       id: apartment.id,

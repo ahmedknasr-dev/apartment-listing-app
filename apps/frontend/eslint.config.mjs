@@ -43,10 +43,9 @@ const eslintConfig = defineConfig([
       '@typescript-eslint/no-explicit-any': 'warn',
       '@typescript-eslint/explicit-function-return-type': 'off',
       '@typescript-eslint/explicit-module-boundary-types': 'off',
-      '@typescript-eslint/consistent-type-imports': 'off', // Can be enabled with proper tsconfig
-      '@typescript-eslint/prefer-nullish-coalescing': 'off', // Requires type information
-      '@typescript-eslint/prefer-optional-chain': 'off', // Requires type information
-
+      '@typescript-eslint/consistent-type-imports': 'off',
+      '@typescript-eslint/prefer-nullish-coalescing': 'off',
+      '@typescript-eslint/prefer-optional-chain': 'off',
       // Common Best Practices (aligned with backend)
       'no-console': ['warn', { allow: ['warn', 'error', 'info'] }],
       'no-debugger': 'error',
@@ -57,8 +56,8 @@ const eslintConfig = defineConfig([
       'arrow-body-style': ['error', 'as-needed'],
 
       // React/Next.js Specific
-      'react/react-in-jsx-scope': 'off', // Not needed in Next.js 13+
-      'react/prop-types': 'off', // Using TypeScript
+      'react/react-in-jsx-scope': 'off',
+      'react/prop-types': 'off',
       'react-hooks/rules-of-hooks': 'error',
       'react-hooks/exhaustive-deps': 'warn',
 
