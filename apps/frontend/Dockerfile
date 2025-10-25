@@ -9,9 +9,13 @@ WORKDIR /app
 # Copy workspace and package files
 COPY pnpm-workspace.yaml package.json pnpm-lock.yaml ./
 COPY apps/frontend/package.json ./apps/frontend/
+COPY packages/shared/package.json ./packages/shared/
 
 # Install dependencies
 RUN pnpm install --frozen-lockfile
+
+# Copy shared package
+COPY packages/shared ./packages/shared
 
 # Copy frontend source code
 COPY apps/frontend ./apps/frontend
