@@ -44,6 +44,8 @@ export default [
         clearTimeout: 'readonly',
         setInterval: 'readonly',
         clearInterval: 'readonly',
+        // Express types from @types/multer
+        Express: 'readonly',
         // Jest/Testing globals
         describe: 'readonly',
         it: 'readonly',

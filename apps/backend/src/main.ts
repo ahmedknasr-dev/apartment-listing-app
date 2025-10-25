@@ -1,5 +1,8 @@
+import { join } from 'path';
+
 import { Logger, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
+import type { NestExpressApplication } from '@nestjs/platform-express';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 import { AppModule } from './app.module';
@@ -8,8 +11,12 @@ import { AppModule } from './app.module';
  * Bootstrap the NestJS application
  */
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create<NestExpressApplication>(AppModule);
   const logger = new Logger('Bootstrap');
+
+  app.useStaticAssets(join(process.cwd(), 'uploads'), {
+    prefix: '/uploads',
+  });
 
   app.useGlobalPipes(
     new ValidationPipe({
@@ -32,6 +39,7 @@ async function bootstrap() {
     .setDescription('API for managing apartment listings')
     .setVersion('1.0')
     .addTag('apartments')
+    .addTag('upload')
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
