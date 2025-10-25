@@ -15,8 +15,8 @@ export interface Apartment {
   area: number;
   images: string[];
   available: boolean;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: string;
+  updatedAt: string;
 }
 
 /**

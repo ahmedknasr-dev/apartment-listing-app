@@ -79,9 +79,7 @@ export default [
           caughtErrorsIgnorePattern: '^_',
         },
       ],
-      '@typescript-eslint/no-explicit-any': 'warn',
-      '@typescript-eslint/explicit-function-return-type': 'off',
-      '@typescript-eslint/explicit-module-boundary-types': 'off',
+      '@typescript-eslint/no-explicit-any': 'error',
       '@typescript-eslint/no-empty-function': ['error', { allow: ['constructors'] }],
       '@typescript-eslint/no-useless-constructor': 'error',
 
@@ -102,7 +100,7 @@ export default [
         },
         {
           selector: 'function',
-          format: ['camelCase', 'PascalCase'], // Allow PascalCase for React components
+          format: ['camelCase', 'PascalCase'],
         },
         {
           selector: 'typeLike',

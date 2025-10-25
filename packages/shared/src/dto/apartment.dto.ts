@@ -58,8 +58,8 @@ export interface ApartmentResponseDto {
   area: number;
   images: string[];
   available: boolean;
-  createdAt: string; // ISO string format
-  updatedAt: string; // ISO string format
+  createdAt: string; // ISO string format for JSON
+  updatedAt: string; // ISO string format for JSON
 }
 
 /**
@@ -88,10 +88,14 @@ export interface ListApartmentsQueryDto {
  */
 export interface PaginatedApartmentsResponseDto {
   data: ApartmentResponseDto[];
-  total: number;
-  page: number;
-  limit: number;
-  totalPages: number;
+  meta: {
+    currentPage: number;
+    itemsPerPage: number;
+    totalItems: number;
+    totalPages: number;
+    hasNextPage: boolean;
+    hasPreviousPage: boolean;
+  };
 }
 
 /**

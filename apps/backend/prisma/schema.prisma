@@ -24,8 +24,8 @@ model Apartment {
   area        Float
   images      String[]
   available   Boolean  @default(true)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  createdAt   String   @default("")
+  updatedAt   String
 
   @@map("apartments")
 }

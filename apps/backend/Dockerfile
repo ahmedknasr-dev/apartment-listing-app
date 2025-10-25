@@ -14,8 +14,9 @@ COPY packages/shared/package.json ./packages/shared/
 # Install dependencies
 RUN pnpm install --frozen-lockfile
 
-# Copy shared package
+# Copy shared package and build it
 COPY packages/shared ./packages/shared
+RUN cd packages/shared && pnpm run build
 
 # Copy backend source code
 COPY apps/backend ./apps/backend
@@ -27,4 +28,4 @@ WORKDIR /app/apps/backend
 EXPOSE 3001
 
 # Start development server
-CMD ["pnpm", "start:dev"]
+CMD ["sh", "-c", "pnpm nest build && pnpm start:dev"]
