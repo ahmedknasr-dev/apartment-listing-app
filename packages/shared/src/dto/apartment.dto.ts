@@ -1,3 +1,5 @@
+import { SortField, SortOrder } from '../enums/apartment.enums';
+
 /**
  * Data Transfer Objects (DTOs) for Apartment API
  * Used for validation and type safety in API requests/responses
@@ -80,8 +82,8 @@ export interface ListApartmentsQueryDto {
   project?: string;
   page?: number;
   limit?: number;
-  sortBy?: string;
-  sortOrder?: 'asc' | 'desc';
+  sortBy?: SortField | string;
+  sortOrder?: SortOrder;
 }
 
 /**

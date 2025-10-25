@@ -1,6 +1,10 @@
 import { ApiPropertyOptional } from '@nestjs/swagger';
 
-import { ListApartmentsQueryDto as SharedQueryDto } from '@apartment-listing/shared';
+import {
+  ListApartmentsQueryDto as SharedQueryDto,
+  SortField,
+  SortOrder,
+} from '@apartment-listing/shared';
 import { Type } from 'class-transformer';
 import {
   IsBoolean,
@@ -11,20 +15,6 @@ import {
   Max,
   Min,
 } from 'class-validator';
-
-export enum SortField {
-  PRICE = 'price',
-  AREA = 'area',
-  BEDROOMS = 'bedrooms',
-  BATHROOMS = 'bathrooms',
-  CREATED_AT = 'createdAt',
-  UPDATED_AT = 'updatedAt',
-}
-
-export enum SortOrder {
-  ASC = 'asc',
-  DESC = 'desc',
-}
 
 export class QueryApartmentDto implements SharedQueryDto {
   @ApiPropertyOptional({

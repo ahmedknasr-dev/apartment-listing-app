@@ -1,3 +1,5 @@
+import { NumericField } from '@apartment-listing/shared';
+
 import type { QueryApartmentDto } from '../dto/query-apartment.dto';
 import type { Prisma } from '@prisma/client';
 
@@ -40,20 +42,30 @@ export class ApartmentFilterBuilderService {
     }
 
     // Range filters for numeric fields
-    this.addRangeFilter(where, 'price', filters.minPrice, filters.maxPrice);
     this.addRangeFilter(
       where,
-      'bedrooms',
+      NumericField.PRICE,
+      filters.minPrice,
+      filters.maxPrice,
+    );
+    this.addRangeFilter(
+      where,
+      NumericField.BEDROOMS,
       filters.minBedrooms,
       filters.maxBedrooms,
     );
     this.addRangeFilter(
       where,
-      'bathrooms',
+      NumericField.BATHROOMS,
       filters.minBathrooms,
       filters.maxBathrooms,
     );
-    this.addRangeFilter(where, 'area', filters.minArea, filters.maxArea);
+    this.addRangeFilter(
+      where,
+      NumericField.AREA,
+      filters.minArea,
+      filters.maxArea,
+    );
 
     // Boolean filter
     if (filters.available !== undefined) {
@@ -68,12 +80,12 @@ export class ApartmentFilterBuilderService {
    */
   private static addRangeFilter(
     where: Prisma.ApartmentWhereInput,
-    field: 'price' | 'bedrooms' | 'bathrooms' | 'area',
+    field: NumericField,
     min?: number,
     max?: number,
   ): void {
     if (min !== undefined || max !== undefined) {
-      const rangeFilter: { gte?: number; lte?: number } = {};
+      const rangeFilter: Prisma.IntFilter = {};
 
       if (min !== undefined) {
         rangeFilter.gte = min;
@@ -81,7 +93,6 @@ export class ApartmentFilterBuilderService {
       if (max !== undefined) {
         rangeFilter.lte = max;
       }
-
       where[field] = rangeFilter;
     }
   }

@@ -1,4 +1,5 @@
 import type { UpdateApartmentDto } from '../dto/update-apartment.dto';
+import type { SortField, SortOrder } from '@apartment-listing/shared';
 
 /**
  * Utility for mapping and transforming data
@@ -47,9 +48,9 @@ export class ApartmentDataMapperService {
    * Build sort order object for Prisma
    */
   static buildSortOrder(
-    sortBy: string,
-    sortOrder: string,
-  ): Record<string, string> {
+    sortBy: SortField,
+    sortOrder: SortOrder,
+  ): Record<string, SortOrder> {
     return { [sortBy]: sortOrder };
   }
 }

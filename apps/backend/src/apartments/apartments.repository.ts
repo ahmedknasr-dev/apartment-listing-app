@@ -1,5 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 
+import { SortField, SortOrder } from '@apartment-listing/shared';
+
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateApartmentDto } from './dto/create-apartment.dto';
 import { QueryApartmentDto } from './dto/query-apartment.dto';
@@ -47,8 +49,8 @@ export class ApartmentsRepository {
         skip,
         take: limit,
         orderBy: ApartmentDataMapper.buildSortOrder(
-          sortBy ?? 'createdAt',
-          sortOrder ?? 'desc',
+          sortBy ?? SortField.CREATED_AT,
+          sortOrder ?? SortOrder.DESC,
         ),
       }),
       this.prisma.apartment.count({ where }),
