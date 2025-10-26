@@ -3,7 +3,9 @@ import { Geist, Geist_Mono } from 'next/font/google';
 import '../styles/bootstrap-custom.scss';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import './globals.scss';
-import appProviders from '@/providers/Providers';
+import providerComponents from '@/providers/Providers';
+
+const { default: AppProviders } = { default: providerComponents };
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -27,7 +29,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>{appProviders({ children })}</body>
+      <body className={`${geistSans.variable} ${geistMono.variable}`} suppressHydrationWarning>
+        <AppProviders>{children}</AppProviders>
+      </body>
     </html>
   );
 }
