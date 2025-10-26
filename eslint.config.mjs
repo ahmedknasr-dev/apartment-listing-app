@@ -58,6 +58,8 @@ export default [
         // React globals
         React: 'readonly',
         JSX: 'readonly',
+        File: 'readonly',
+        FormData: 'readonly',
       },
     },
     plugins: {

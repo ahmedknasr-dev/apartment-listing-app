@@ -20,12 +20,15 @@
     "next": "16.0.0",
     "react": "19.2.0",
     "react-bootstrap": "^2.10.10",
-    "react-dom": "19.2.0"
+    "react-dom": "19.2.0",
+    "react-hot-toast": "^2.6.0",
+    "uuid": "^13.0.0"
   },
   "devDependencies": {
     "@types/node": "^24.9.1",
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.2",
+    "@types/uuid": "^11.0.0",
     "eslint": "^9.38.0",
     "eslint-config-next": "16.0.0",
     "eslint-config-prettier": "^10.1.8",
