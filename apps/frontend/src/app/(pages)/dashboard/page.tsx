@@ -28,7 +28,7 @@ export default function Dashboard() {
   const [isDeleting, setIsDeleting] = useState(false);
 
   useEffect(() => {
-    fetchApartments({ page: 1, limit: 12 });
+    fetchApartments({ page: 1, limit: 8 });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -90,28 +90,28 @@ export default function Dashboard() {
 
   const handleSearch = (newFilters: typeof filters) => {
     updateFilters({ ...newFilters, page: 1 });
-    fetchApartments({ ...newFilters, page: 1, limit: pagination?.itemsPerPage || 12 });
+    fetchApartments({ ...newFilters, page: 1, limit: pagination?.itemsPerPage || 8 });
   };
 
   const handleReset = () => {
     resetFilters();
-    fetchApartments({ page: 1, limit: 12 });
+    fetchApartments({ page: 1, limit: 8 });
   };
 
   const handlePageChange = (page: number) => {
     updateFilters({ ...filters, page });
-    fetchApartments({ ...filters, page, limit: pagination?.itemsPerPage || 12 });
+    fetchApartments({ ...filters, page, limit: pagination?.itemsPerPage || 8 });
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
-    <Container fluid className="py-4">
+    <Container className="py-4 py-md-5">
       {/* Header */}
-      <Row className="mb-4">
+      <Row className="mb-4 mb-md-5">
         <Col>
           <div className="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center gap-3">
             <div>
-              <h1 className="mb-2">Apartment Dashboard</h1>
+              <h1 className="mb-2 mb-md-3">Apartment Dashboard</h1>
               <p className="text-muted mb-0">
                 Manage your apartment listings
                 {pagination && (
@@ -129,24 +129,36 @@ export default function Dashboard() {
       </Row>
 
       {/* Search & Filters */}
-      <SearchBar filters={filters} onSearch={handleSearch} onReset={handleReset} />
+      <Row className="mb-4 mb-md-5">
+        <Col>
+          <SearchBar filters={filters} onSearch={handleSearch} onReset={handleReset} />
+        </Col>
+      </Row>
 
       {/* Apartment List */}
-      <ApartmentList
-        apartments={apartments}
-        isLoading={isLoading}
-        error={error}
-        onEdit={handleEdit}
-        onDelete={handleDelete}
-      />
+      <Row className="mb-4 mb-md-5">
+        <Col>
+          <ApartmentList
+            apartments={apartments}
+            isLoading={isLoading}
+            error={error}
+            onEdit={handleEdit}
+            onDelete={handleDelete}
+          />
+        </Col>
+      </Row>
 
       {/* Pagination */}
       {pagination && pagination.totalPages > 1 && (
-        <Pagination
-          currentPage={pagination.currentPage}
-          totalPages={pagination.totalPages}
-          onPageChange={handlePageChange}
-        />
+        <Row className="mt-4 mt-md-5">
+          <Col>
+            <Pagination
+              currentPage={pagination.currentPage}
+              totalPages={pagination.totalPages}
+              onPageChange={handlePageChange}
+            />
+          </Col>
+        </Row>
       )}
 
       {/* Modal */}

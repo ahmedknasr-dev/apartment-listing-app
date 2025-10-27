@@ -1,5 +1,5 @@
 import { Form, Col, InputGroup } from 'react-bootstrap';
-import { TextInputFieldProps, NumberInputFieldProps } from './models';
+import { TextInputFieldProps, NumberInputFieldProps } from '../shared/models';
 
 export function TextInputField({ label, field, placeholder, value, onChange, colSize }: TextInputFieldProps) {
   return (

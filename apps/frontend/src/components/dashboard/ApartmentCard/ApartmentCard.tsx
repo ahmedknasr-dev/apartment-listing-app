@@ -1,5 +1,5 @@
 import { Card, Badge, Button, Row, Col } from 'react-bootstrap';
-import { ApartmentCardProps } from './models';
+import { ApartmentCardProps } from '../shared/models';
 
 export default function ApartmentCard({ apartment, onEdit, onDelete }: ApartmentCardProps) {
   return (

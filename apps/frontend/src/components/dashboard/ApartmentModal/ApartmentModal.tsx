@@ -1,6 +1,6 @@
 import { Modal } from 'react-bootstrap';
-import ApartmentForm from './ApartmentForm';
-import { ApartmentModalProps } from './models';
+import ApartmentForm from '../ApartmentForm';
+import { ApartmentModalProps } from '../shared/models';
 
 export default function ApartmentModal({ show, apartment, onHide, onSubmit, isLoading }: ApartmentModalProps) {
   return (

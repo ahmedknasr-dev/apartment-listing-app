@@ -1,6 +1,6 @@
 import { Row, Col, Spinner, Alert } from 'react-bootstrap';
-import ApartmentCard from './ApartmentCard';
-import { ApartmentListProps } from './models';
+import ApartmentCard from '../ApartmentCard';
+import { ApartmentListProps } from '../shared/models';
 
 export default function ApartmentList({ apartments, isLoading, error, onEdit, onDelete }: ApartmentListProps) {
   if (isLoading) {

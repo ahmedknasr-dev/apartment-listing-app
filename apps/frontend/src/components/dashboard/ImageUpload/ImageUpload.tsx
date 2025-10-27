@@ -1,7 +1,7 @@
 import { useState, useRef } from 'react';
 import { Button, Form, Row, Col, Spinner, Image } from 'react-bootstrap';
 import { useUploadFacade } from '@/facade/uploadFacade';
-import { ImageUploadProps } from './models';
+import { ImageUploadProps } from '../shared/models';
 
 export default function ImageUpload({ images, onChange, disabled }: ImageUploadProps) {
   const [isUploading, setIsUploading] = useState(false);

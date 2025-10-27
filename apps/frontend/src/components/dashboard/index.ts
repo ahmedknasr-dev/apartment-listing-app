@@ -7,5 +7,5 @@ export { default as SearchBar } from './SearchBar';
 export { default as ImageUpload } from './ImageUpload';
 export { default as Pagination } from './Pagination';
 
-// Export all interfaces
-export * from './models';
+// Export all shared models and types
+export * from './shared/models';

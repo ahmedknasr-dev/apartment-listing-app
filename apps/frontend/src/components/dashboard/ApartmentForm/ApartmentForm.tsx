@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { Form, Row, Col, Button, Alert } from 'react-bootstrap';
 import { CreateApartmentDto } from '@apartment-listing/shared';
-import { ApartmentFormProps } from './models';
-import ImageUpload from './ImageUpload';
+import { ApartmentFormProps } from '../shared/models';
+import ImageUpload from '../ImageUpload';
 
 export default function ApartmentForm({ apartment, onSubmit, onCancel, isLoading }: ApartmentFormProps) {
   const getInitialFormData = (): CreateApartmentDto => {
