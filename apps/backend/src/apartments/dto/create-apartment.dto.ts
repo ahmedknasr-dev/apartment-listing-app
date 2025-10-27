@@ -18,7 +18,7 @@ import {
 export class CreateApartmentDto implements SharedCreateApartmentDto {
   @ApiProperty({
     description: 'Unit name',
-    example: 'Luxury Apartment',
+    example: 'Palm Hills B-305',
     minLength: 3,
     maxLength: 100,
   })
@@ -30,7 +30,7 @@ export class CreateApartmentDto implements SharedCreateApartmentDto {
 
   @ApiProperty({
     description: 'Unit number',
-    example: 'A-101',
+    example: 'B-305',
     minLength: 1,
     maxLength: 20,
   })
@@ -42,7 +42,7 @@ export class CreateApartmentDto implements SharedCreateApartmentDto {
 
   @ApiProperty({
     description: 'Project name',
-    example: 'Sunrise Towers',
+    example: 'Palm Hills',
     minLength: 3,
     maxLength: 100,
   })
@@ -54,7 +54,8 @@ export class CreateApartmentDto implements SharedCreateApartmentDto {
 
   @ApiPropertyOptional({
     description: 'Apartment description',
-    example: 'Beautiful apartment with city view',
+    example:
+      'Luxurious apartment with modern amenities and stunning city views. Features high-end finishes and spacious living areas.',
     maxLength: 1000,
   })
   @IsString()
@@ -64,7 +65,7 @@ export class CreateApartmentDto implements SharedCreateApartmentDto {
 
   @ApiProperty({
     description: 'Street address',
-    example: '123 Main Street',
+    example: '45 Palm Hills Street, New Cairo',
     minLength: 5,
     maxLength: 200,
   })
@@ -76,7 +77,7 @@ export class CreateApartmentDto implements SharedCreateApartmentDto {
 
   @ApiProperty({
     description: 'City name',
-    example: 'Cairo',
+    example: 'New Cairo',
     minLength: 2,
     maxLength: 100,
   })
@@ -88,7 +89,7 @@ export class CreateApartmentDto implements SharedCreateApartmentDto {
 
   @ApiProperty({
     description: 'Price per month',
-    example: 15000,
+    example: 4500000,
     minimum: 0,
   })
   @IsNumber()
@@ -115,7 +116,7 @@ export class CreateApartmentDto implements SharedCreateApartmentDto {
 
   @ApiProperty({
     description: 'Area in square meters',
-    example: 120,
+    example: 150.5,
     minimum: 0,
   })
   @IsNumber()
@@ -125,8 +126,9 @@ export class CreateApartmentDto implements SharedCreateApartmentDto {
   @ApiPropertyOptional({
     description: 'Array of image URLs',
     example: [
-      'https://example.com/image1.jpg',
-      'https://example.com/image2.jpg',
+      'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800',
+      'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=800',
+      'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800',
     ],
     type: [String],
   })

@@ -20,7 +20,7 @@ export class QueryApartmentDto implements SharedQueryDto {
   @ApiPropertyOptional({
     description:
       'Search term to search across unit name, description, address, city, and project',
-    example: 'Cairo apartment',
+    example: 'Palm Hills',
   })
   @IsOptional()
   @IsString()
@@ -28,7 +28,7 @@ export class QueryApartmentDto implements SharedQueryDto {
 
   @ApiPropertyOptional({
     description: 'City filter',
-    example: 'Cairo',
+    example: 'New Cairo',
   })
   @IsOptional()
   @IsString()
@@ -36,7 +36,7 @@ export class QueryApartmentDto implements SharedQueryDto {
 
   @ApiPropertyOptional({
     description: 'Project filter',
-    example: 'Sunrise Towers',
+    example: 'Madinaty',
   })
   @IsOptional()
   @IsString()
@@ -44,7 +44,7 @@ export class QueryApartmentDto implements SharedQueryDto {
 
   @ApiPropertyOptional({
     description: 'Minimum price',
-    example: 10000,
+    example: 2000000,
     minimum: 0,
   })
   @IsOptional()
@@ -55,7 +55,7 @@ export class QueryApartmentDto implements SharedQueryDto {
 
   @ApiPropertyOptional({
     description: 'Maximum price',
-    example: 50000,
+    example: 8000000,
     minimum: 0,
   })
   @IsOptional()
@@ -110,7 +110,7 @@ export class QueryApartmentDto implements SharedQueryDto {
 
   @ApiPropertyOptional({
     description: 'Minimum area in square meters',
-    example: 80,
+    example: 100,
     minimum: 0,
   })
   @IsOptional()
@@ -121,7 +121,7 @@ export class QueryApartmentDto implements SharedQueryDto {
 
   @ApiPropertyOptional({
     description: 'Maximum area in square meters',
-    example: 200,
+    example: 300,
     minimum: 0,
   })
   @IsOptional()

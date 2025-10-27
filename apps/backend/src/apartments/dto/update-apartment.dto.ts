@@ -10,31 +10,32 @@ export class UpdateApartmentDto
 {
   @ApiPropertyOptional({
     description: 'Unit name',
-    example: 'Luxury Apartment',
+    example: 'Hyde Park C-402',
   })
   unitName?: string;
 
   @ApiPropertyOptional({
     description: 'Unit number',
-    example: 'A-101',
+    example: 'C-402',
   })
   unitNumber?: string;
 
   @ApiPropertyOptional({
     description: 'Project name',
-    example: 'Sunrise Towers',
+    example: 'Hyde Park',
   })
   project?: string;
 
   @ApiPropertyOptional({
     description: 'Apartment description',
-    example: 'Beautiful apartment with city view',
+    example:
+      'Modern design with state-of-the-art facilities. Includes gym, swimming pool, and 24/7 security.',
   })
   description?: string;
 
   @ApiPropertyOptional({
     description: 'Street address',
-    example: '123 Main Street',
+    example: '78 Hyde Park Street, Cairo',
   })
   address?: string;
 
@@ -46,37 +47,41 @@ export class UpdateApartmentDto
 
   @ApiPropertyOptional({
     description: 'Price per month',
-    example: 15000,
+    example: 5200000,
   })
   price?: number;
 
   @ApiPropertyOptional({
     description: 'Number of bedrooms',
-    example: 3,
+    example: 4,
   })
   bedrooms?: number;
 
   @ApiPropertyOptional({
     description: 'Number of bathrooms',
-    example: 2,
+    example: 3,
   })
   bathrooms?: number;
 
   @ApiPropertyOptional({
     description: 'Area in square meters',
-    example: 120,
+    example: 180.75,
   })
   area?: number;
 
   @ApiPropertyOptional({
     description: 'Array of image URLs',
+    example: [
+      'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800',
+      'https://images.unsplash.com/photo-1484154218962-a197022b5858?w=800',
+    ],
     type: [String],
   })
   images?: string[];
 
   @ApiPropertyOptional({
     description: 'Availability status',
-    example: true,
+    example: false,
   })
   available?: boolean;
 }

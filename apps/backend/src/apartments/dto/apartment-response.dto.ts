@@ -11,32 +11,33 @@ export class ApartmentResponseDto implements SharedApartmentResponseDto {
 
   @ApiProperty({
     description: 'Unit name',
-    example: 'Luxury Apartment',
+    example: 'Madinaty A-803',
   })
   unitName = '';
 
   @ApiProperty({
     description: 'Unit number',
-    example: 'A-101',
+    example: 'A-803',
   })
   unitNumber = '';
 
   @ApiProperty({
     description: 'Project name',
-    example: 'Sunrise Towers',
+    example: 'Madinaty',
   })
   project = '';
 
   @ApiProperty({
     description: 'Apartment description',
-    example: 'Beautiful apartment with city view',
+    example:
+      'Spacious apartment with natural lighting throughout. Large balcony with panoramic views.',
     nullable: true,
   })
   description: string | null = null;
 
   @ApiProperty({
     description: 'Street address',
-    example: '123 Main Street',
+    example: '42 Madinaty Street, Cairo',
   })
   address = '';
 
@@ -48,7 +49,7 @@ export class ApartmentResponseDto implements SharedApartmentResponseDto {
 
   @ApiProperty({
     description: 'Price per month',
-    example: 15000,
+    example: 3750000,
   })
   price = 0;
 
@@ -66,14 +67,18 @@ export class ApartmentResponseDto implements SharedApartmentResponseDto {
 
   @ApiProperty({
     description: 'Area in square meters',
-    example: 120,
+    example: 125.8,
   })
   area = 0;
 
   @ApiProperty({
     description: 'Array of image URLs',
     type: [String],
-    example: ['https://example.com/image1.jpg'],
+    example: [
+      'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800',
+      'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=800',
+      'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800',
+    ],
   })
   images: string[] = [];
 
@@ -85,13 +90,13 @@ export class ApartmentResponseDto implements SharedApartmentResponseDto {
 
   @ApiProperty({
     description: 'Creation timestamp',
-    example: '2023-10-25T10:00:00.000Z',
+    example: '2025-10-27T10:30:00.000Z',
   })
   createdAt = '';
 
   @ApiProperty({
     description: 'Last update timestamp',
-    example: '2023-10-25T10:00:00.000Z',
+    example: '2025-10-27T10:30:00.000Z',
   })
   updatedAt = '';
 }
