@@ -96,16 +96,17 @@ export const useCreateApartmentOptimistic = () => {
       try {
         dispatch({ type: ApartmentActionType.CLEAR_ERROR });
 
+        const optimisticList = [tempApartment, ...state.apartments];
         dispatch({
           type: ApartmentActionType.SET_APARTMENTS,
-          payload: [tempApartment, ...state.apartments],
+          payload: optimisticList,
         });
 
         const newApartment = await apartmentsApi.create(data);
 
         dispatch({
           type: ApartmentActionType.SET_APARTMENTS,
-          payload: state.apartments.map((apt) => (apt.id === tempApartment.id ? newApartment : apt)),
+          payload: optimisticList.map((apt) => (apt.id === tempApartment.id ? newApartment : apt)),
         });
 
         toastUtils.success('Apartment created successfully');
@@ -151,9 +152,10 @@ export const useUpdateApartmentOptimistic = () => {
           updatedAt: new Date().toISOString(),
         };
 
+        const optimisticList = state.apartments.map((apt) => (apt.id === id ? optimisticApartment : apt));
         dispatch({
           type: ApartmentActionType.SET_APARTMENTS,
-          payload: state.apartments.map((apt) => (apt.id === id ? optimisticApartment : apt)),
+          payload: optimisticList,
         });
 
         if (state.selectedApartment?.id === id) {
@@ -167,7 +169,7 @@ export const useUpdateApartmentOptimistic = () => {
 
         dispatch({
           type: ApartmentActionType.SET_APARTMENTS,
-          payload: state.apartments.map((apt) => (apt.id === id ? updatedApartment : apt)),
+          payload: optimisticList.map((apt) => (apt.id === id ? updatedApartment : apt)),
         });
 
         if (state.selectedApartment?.id === id) {

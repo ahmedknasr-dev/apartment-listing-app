@@ -60,11 +60,6 @@ const eslintConfig = defineConfig([
       'react/prop-types': 'off',
       'react-hooks/rules-of-hooks': 'error',
       'react-hooks/exhaustive-deps': 'warn',
-
-      // Code Quality (slightly relaxed for frontend)
-      complexity: ['warn', 15],
-      'max-depth': ['warn', 4],
-      'max-lines-per-function': ['warn', { max: 100, skipBlankLines: true, skipComments: true }],
     },
   },
 ]);

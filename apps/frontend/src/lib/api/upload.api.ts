@@ -15,7 +15,7 @@ export const uploadApi = {
       formData.append('files', file);
     });
 
-    const response = await apiClient.post<UploadFilesResponseDto>('/upload/apartments', formData, {
+    const response = await apiClient.post<UploadFilesResponseDto>('/upload/images', formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },

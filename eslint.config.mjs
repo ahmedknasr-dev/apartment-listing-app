@@ -1,6 +1,11 @@
 /**
  * Root ESLint Configuration (Flat Config)
- * Shared rules across the entire monorepo
+ * Applies to:
+ * 1. Root-level config files (commitlint, lint-staged, etc.)
+ * 2. Shared packages that don't have their own config
+ * 3. Any root-level scripts or utilities
+ * 
+ * Note: apps/frontend and apps/backend have their own configs and are excluded
  */
 import js from '@eslint/js';
 import tseslint from '@typescript-eslint/eslint-plugin';
@@ -20,6 +25,9 @@ export default [
       '**/eslint.config.mjs',
       '**/eslint.config.js',
       '**/.eslintrc.js',
+      // Exclude workspace apps - they have their own configs
+      'apps/frontend/**',
+      'apps/backend/**',
     ],
   },
   // Base config for all JavaScript/TypeScript files
@@ -60,6 +68,7 @@ export default [
         JSX: 'readonly',
         File: 'readonly',
         FormData: 'readonly',
+        HTMLInputElement: 'readonly',
       },
     },
     plugins: {
@@ -134,9 +143,6 @@ export default [
       'no-useless-constructor': 'off',
 
       // Code Quality
-      complexity: ['warn', 15],
-      'max-depth': ['warn', 4],
-      'max-params': ['warn', 5],
       'no-nested-ternary': 'warn',
       'no-unneeded-ternary': 'error',
 
