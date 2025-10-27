@@ -1,49 +1,96 @@
-import { useState, useRef } from 'react';
-import { Button, Form, Row, Col, Spinner, Image } from 'react-bootstrap';
-import { useUploadFacade } from '@/facade/uploadFacade';
+import { useState, useRef, useEffect } from 'react';
+import { Button, Form, Row, Col, Image } from 'react-bootstrap';
 import { ImageUploadProps } from '../shared/models';
+import { getFullImageUrl } from '@/lib/utils/image';
+
+interface ImagePreview {
+  file: File | null;
+  previewUrl: string;
+}
 
 export default function ImageUpload({ images, onChange, disabled }: ImageUploadProps) {
-  const [isUploading, setIsUploading] = useState(false);
+  const [previews, setPreviews] = useState<ImagePreview[]>([]);
+  const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const { uploadImages } = useUploadFacade();
 
-  const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  // Initialize previews from existing images (for edit mode)
+  useEffect(() => {
+    if (images && images.length > 0 && previews.length === 0) {
+      const existingPreviews: ImagePreview[] = images.map((url) => ({
+        file: null,
+        previewUrl: getFullImageUrl(url),
+      }));
+      setPreviews(existingPreviews);
+    }
+  }, [images, previews.length]);
+
+  const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files || []);
     if (files.length === 0) return;
 
-    try {
-      setIsUploading(true);
-      const response = await uploadImages(files);
-      const newImages = [...images, ...response.urls];
-      onChange(newImages);
+    // Create preview URLs for the selected files
+    const newPreviews: ImagePreview[] = files.map((file) => ({
+      file,
+      previewUrl: URL.createObjectURL(file),
+    }));
 
-      if (fileInputRef.current) {
-        fileInputRef.current.value = '';
-      }
-    } catch (error) {
-      console.error('Upload error:', error);
-    } finally {
-      setIsUploading(false);
+    const updatedPreviews = [...previews, ...newPreviews];
+    setPreviews(updatedPreviews);
+
+    // Collect all files (both old and new)
+    const allFiles = [...selectedFiles, ...files];
+    setSelectedFiles(allFiles);
+    onChange(allFiles);
+
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
     }
   };
 
   const handleRemoveImage = (index: number) => {
-    const newImages = images.filter((_, i) => i !== index);
-    onChange(newImages);
+    const preview = previews[index];
+
+    // Revoke the object URL to prevent memory leaks (only for new files)
+    if (preview.file) {
+      URL.revokeObjectURL(preview.previewUrl);
+
+      // Remove from selected files
+      const fileIndex = selectedFiles.indexOf(preview.file);
+      if (fileIndex > -1) {
+        const updatedFiles = selectedFiles.filter((_, i) => i !== fileIndex);
+        setSelectedFiles(updatedFiles);
+        onChange(updatedFiles);
+      }
+    }
+
+    const newPreviews = previews.filter((_, i) => i !== index);
+    setPreviews(newPreviews);
   };
+
+  // Cleanup preview URLs on unmount
+  useEffect(
+    () => () => {
+      previews.forEach((preview) => {
+        if (preview.file) {
+          URL.revokeObjectURL(preview.previewUrl);
+        }
+      });
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [],
+  );
 
   return (
     <Form.Group>
       <Form.Label>Images</Form.Label>
 
-      {images.length > 0 && (
+      {previews.length > 0 && (
         <Row className="g-2 mb-3">
-          {images.map((image, index) => (
+          {previews.map((preview, index) => (
             <Col xs={6} sm={4} md={3} key={index}>
               <div className="position-relative">
                 <Image
-                  src={image}
+                  src={preview.previewUrl}
                   alt={`Preview ${index + 1}`}
                   thumbnail
                   className="w-100"
@@ -54,7 +101,7 @@ export default function ImageUpload({ images, onChange, disabled }: ImageUploadP
                   size="sm"
                   className="position-absolute top-0 end-0 m-1"
                   onClick={() => handleRemoveImage(index)}
-                  disabled={disabled || isUploading}
+                  disabled={disabled}
                 >
                   ×
                 </Button>
@@ -71,16 +118,13 @@ export default function ImageUpload({ images, onChange, disabled }: ImageUploadP
           accept="image/*"
           multiple
           onChange={handleFileSelect}
-          disabled={disabled || isUploading}
+          disabled={disabled}
         />
-        {isUploading && (
-          <Spinner animation="border" size="sm" variant="primary" role="status">
-            <span className="visually-hidden">Uploading...</span>
-          </Spinner>
-        )}
       </div>
 
-      <Form.Text className="text-muted">You can upload multiple images. Supported formats: JPG, PNG, GIF</Form.Text>
+      <Form.Text className="text-muted">
+        You can select multiple images. They will be uploaded when you create the apartment.
+      </Form.Text>
     </Form.Group>
   );
 }

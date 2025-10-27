@@ -9,7 +9,6 @@ import {
   IsNumber,
   IsOptional,
   IsString,
-  IsUrl,
   MaxLength,
   Min,
   MinLength,
@@ -134,7 +133,6 @@ export class CreateApartmentDto implements SharedCreateApartmentDto {
   })
   @IsArray()
   @IsString({ each: true })
-  @IsUrl({}, { each: true })
   @IsOptional()
   images?: string[];
 

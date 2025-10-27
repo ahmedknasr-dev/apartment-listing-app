@@ -1,5 +1,6 @@
 import { Card, Badge, Button, Row, Col } from 'react-bootstrap';
 import { ApartmentCardProps } from '../shared/models';
+import { getFullImageUrl } from '@/lib/utils/image';
 
 export default function ApartmentCard({ apartment, onEdit, onDelete }: ApartmentCardProps) {
   return (
@@ -8,7 +9,7 @@ export default function ApartmentCard({ apartment, onEdit, onDelete }: Apartment
         {apartment.images && apartment.images.length > 0 ? (
           <Card.Img
             variant="top"
-            src={apartment.images[0]}
+            src={getFullImageUrl(apartment.images[0])}
             alt={apartment.unitName}
             style={{ height: '100%', objectFit: 'cover' }}
           />

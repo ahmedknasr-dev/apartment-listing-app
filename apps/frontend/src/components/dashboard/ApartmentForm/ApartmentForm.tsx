@@ -3,8 +3,11 @@ import { Form, Row, Col, Button, Alert } from 'react-bootstrap';
 import { CreateApartmentDto } from '@apartment-listing/shared';
 import { ApartmentFormProps } from '../shared/models';
 import ImageUpload from '../ImageUpload';
+import { useUploadFacade } from '@/facade/uploadFacade';
 
 export default function ApartmentForm({ apartment, onSubmit, onCancel, isLoading }: ApartmentFormProps) {
+  const { uploadImages } = useUploadFacade();
+
   const getInitialFormData = (): CreateApartmentDto => {
     if (apartment) {
       return {
@@ -39,7 +42,9 @@ export default function ApartmentForm({ apartment, onSubmit, onCancel, isLoading
   };
 
   const [formData, setFormData] = useState<CreateApartmentDto>(getInitialFormData());
+  const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [isUploading, setIsUploading] = useState(false);
 
   const handleChange = (field: keyof CreateApartmentDto, value: string | number | boolean | string[]) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
@@ -50,6 +55,10 @@ export default function ApartmentForm({ apartment, onSubmit, onCancel, isLoading
         return newErrors;
       });
     }
+  };
+
+  const handleFilesChange = (files: File[]) => {
+    setSelectedFiles(files);
   };
 
   const validateForm = (): boolean => {
@@ -75,9 +84,26 @@ export default function ApartmentForm({ apartment, onSubmit, onCancel, isLoading
     if (!validateForm()) return;
 
     try {
-      await onSubmit(formData);
+      setIsUploading(true);
+
+      // Upload images first if there are new files selected
+      let imageUrls = formData.images || [];
+      if (selectedFiles.length > 0) {
+        const uploadResponse = await uploadImages(selectedFiles);
+        imageUrls = [...imageUrls, ...uploadResponse.urls];
+      }
+
+      // Create/update apartment with uploaded image URLs
+      const dataWithImages = {
+        ...formData,
+        images: imageUrls,
+      };
+
+      await onSubmit(dataWithImages);
     } catch (error) {
       console.error('Form submission error:', error);
+    } finally {
+      setIsUploading(false);
     }
   };
 
@@ -281,19 +307,19 @@ export default function ApartmentForm({ apartment, onSubmit, onCancel, isLoading
         <Col xs={12}>
           <ImageUpload
             images={formData.images || []}
-            onChange={(images: string[]) => handleChange('images', images)}
-            disabled={isLoading}
+            onChange={handleFilesChange}
+            disabled={isLoading || isUploading}
           />
         </Col>
       </Row>
 
       {/* Form Actions */}
       <div className="d-flex gap-2 justify-content-end mt-4">
-        <Button variant="secondary" onClick={onCancel} disabled={isLoading}>
+        <Button variant="secondary" onClick={onCancel} disabled={isLoading || isUploading}>
           Cancel
         </Button>
-        <Button type="submit" variant="primary" disabled={isLoading}>
-          {isLoading ? 'Saving...' : apartment ? 'Update' : 'Create'}
+        <Button type="submit" variant="primary" disabled={isLoading || isUploading}>
+          {isUploading ? 'Uploading images...' : isLoading ? 'Saving...' : apartment ? 'Update' : 'Create'}
         </Button>
       </div>
     </Form>
