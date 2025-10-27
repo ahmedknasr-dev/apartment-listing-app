@@ -4,7 +4,8 @@ import { useEffect, useState } from 'react';
 import { Container, Button, Row, Col, Badge } from 'react-bootstrap';
 import { ApartmentResponseDto, CreateApartmentDto, UpdateApartmentDto } from '@apartment-listing/shared';
 import { useApartmentFacade } from '@/facade/apartmentFacade';
-import { ApartmentList, ApartmentModal, DeleteConfirmModal, SearchBar, Pagination } from '@/components/dashboard';
+import { ApartmentList, ApartmentModal, DeleteConfirmModal } from '@/components/dashboard';
+import { SearchBar, Pagination } from '@/components/shared';
 
 export default function Dashboard() {
   const {

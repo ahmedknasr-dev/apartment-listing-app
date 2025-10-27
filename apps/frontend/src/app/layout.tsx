@@ -4,6 +4,7 @@ import '../styles/bootstrap-custom.scss';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import './globals.scss';
 import providerComponents from '@/providers/Providers';
+import { Navbar } from '@/components/shared/Navbar';
 
 const { default: AppProviders } = { default: providerComponents };
 
@@ -30,7 +31,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`} suppressHydrationWarning>
-        <AppProviders>{children}</AppProviders>
+        <AppProviders>
+          <Navbar />
+          {children}
+        </AppProviders>
       </body>
     </html>
   );

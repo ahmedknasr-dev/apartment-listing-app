@@ -6,7 +6,7 @@ import {
 } from '@apartment-listing/shared';
 
 /**
- * Props for ApartmentCard component
+ * Props for DashboardApartmentCard component
  */
 export interface ApartmentCardProps {
   apartment: ApartmentResponseDto;

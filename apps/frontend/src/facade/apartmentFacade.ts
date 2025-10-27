@@ -101,6 +101,7 @@ export const useCreateApartmentOptimistic = () => {
           type: ApartmentActionType.SET_APARTMENTS,
           payload: optimisticList,
         });
+        dispatch({ type: ApartmentActionType.INCREMENT_TOTAL });
 
         const newApartment = await apartmentsApi.create(data);
 
@@ -116,6 +117,7 @@ export const useCreateApartmentOptimistic = () => {
           type: ApartmentActionType.SET_APARTMENTS,
           payload: state.apartments.filter((apt) => apt.id !== tempApartment.id),
         });
+        dispatch({ type: ApartmentActionType.DECREMENT_TOTAL });
 
         const errorMessage = error instanceof Error ? error.message : 'Failed to create apartment';
         dispatch({ type: ApartmentActionType.SET_ERROR, payload: errorMessage });
@@ -227,6 +229,7 @@ export const useDeleteApartmentOptimistic = () => {
           type: ApartmentActionType.SET_APARTMENTS,
           payload: state.apartments.filter((apt) => apt.id !== id),
         });
+        dispatch({ type: ApartmentActionType.DECREMENT_TOTAL });
 
         if (state.selectedApartment?.id === id) {
           dispatch({
@@ -244,6 +247,7 @@ export const useDeleteApartmentOptimistic = () => {
           type: ApartmentActionType.SET_APARTMENTS,
           payload: [...state.apartments, originalApartment],
         });
+        dispatch({ type: ApartmentActionType.INCREMENT_TOTAL });
 
         const errorMessage = error instanceof Error ? error.message : 'Failed to delete apartment';
         dispatch({ type: ApartmentActionType.SET_ERROR, payload: errorMessage });

@@ -31,6 +31,8 @@ export enum ApartmentActionType {
   SET_ERROR = 'SET_ERROR',
   SET_PAGINATION = 'SET_PAGINATION',
   CLEAR_ERROR = 'CLEAR_ERROR',
+  INCREMENT_TOTAL = 'INCREMENT_TOTAL',
+  DECREMENT_TOTAL = 'DECREMENT_TOTAL',
 }
 
 /**
@@ -54,7 +56,9 @@ export type ApartmentAction =
         hasPreviousPage: boolean;
       };
     }
-  | { type: ApartmentActionType.CLEAR_ERROR };
+  | { type: ApartmentActionType.CLEAR_ERROR }
+  | { type: ApartmentActionType.INCREMENT_TOTAL }
+  | { type: ApartmentActionType.DECREMENT_TOTAL };
 
 /**
  * Initial Apartment State
@@ -137,6 +141,26 @@ export const apartmentReducer = (state: ApartmentState, action: ApartmentAction)
       return {
         ...state,
         error: null,
+      };
+
+    case ApartmentActionType.INCREMENT_TOTAL:
+      return {
+        ...state,
+        pagination: {
+          ...state.pagination,
+          totalItems: state.pagination.totalItems + 1,
+          totalPages: Math.ceil((state.pagination.totalItems + 1) / state.pagination.itemsPerPage),
+        },
+      };
+
+    case ApartmentActionType.DECREMENT_TOTAL:
+      return {
+        ...state,
+        pagination: {
+          ...state.pagination,
+          totalItems: Math.max(0, state.pagination.totalItems - 1),
+          totalPages: Math.ceil(Math.max(0, state.pagination.totalItems - 1) / state.pagination.itemsPerPage),
+        },
       };
 
     default:

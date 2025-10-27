@@ -1,9 +1,14 @@
 import { useState, useEffect } from 'react';
 import { Form, Row, Col, Button, Collapse } from 'react-bootstrap';
 import { ListApartmentsQueryDto } from '@apartment-listing/shared';
-import { SearchBarProps } from '../shared/models';
 import { primaryFilters, advancedFilterGroups } from './search-bar.config';
 import FilterFieldComponent from './FilterField';
+
+export interface SearchBarProps {
+  filters: Partial<ListApartmentsQueryDto>;
+  onSearch: (filters: Partial<ListApartmentsQueryDto>) => void;
+  onReset: () => void;
+}
 
 export default function SearchBar({ filters, onSearch, onReset }: SearchBarProps) {
   const [localFilters, setLocalFilters] = useState<Partial<ListApartmentsQueryDto>>(filters);
