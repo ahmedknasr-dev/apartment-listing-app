@@ -14,11 +14,9 @@ COPY packages/shared/package.json ./packages/shared/
 # Install dependencies
 RUN pnpm install --frozen-lockfile
 
-# Install again to ensure all workspace symlinks are created
-RUN pnpm install
-
-# Copy shared package
+# Copy shared package source and build it BEFORE copying frontend
 COPY packages/shared ./packages/shared
+RUN pnpm --filter @apartment-listing/shared run build
 
 # Copy frontend source code
 COPY apps/frontend ./apps/frontend
