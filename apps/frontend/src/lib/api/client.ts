@@ -1,10 +1,15 @@
 import axios from 'axios';
 
 /**
+ * API version to use
+ */
+const API_VERSION = 'v1';
+
+/**
  * Base API client configuration
  */
 const apiClient = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001',
+  baseURL: `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001'}/${API_VERSION}`,
   timeout: 10000,
   headers: {
     'Content-Type': 'application/json',

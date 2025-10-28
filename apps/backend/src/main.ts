@@ -1,6 +1,6 @@
 import { join } from 'path';
 
-import { Logger, ValidationPipe } from '@nestjs/common';
+import { Logger, ValidationPipe, VersioningType } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import type { NestExpressApplication } from '@nestjs/platform-express';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
@@ -13,6 +13,12 @@ import { AppModule } from './app.module';
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
   const logger = new Logger('Bootstrap');
+
+  // Enable API versioning
+  app.enableVersioning({
+    type: VersioningType.URI,
+    defaultVersion: '1',
+  });
 
   app.useStaticAssets(join(process.cwd(), 'uploads'), {
     prefix: '/uploads',
@@ -43,14 +49,15 @@ async function bootstrap() {
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api', app, document);
+  SwaggerModule.setup('api/docs', app, document);
 
   const port = process.env.PORT ?? 3001;
   await app.listen(port);
   logger.log(`🚀 Application is running on: http://localhost:${port}`);
   logger.log(
-    `📚 Swagger documentation available at: http://localhost:${port}/api`,
+    `📚 Swagger documentation available at: http://localhost:${port}/api/docs`,
   );
+  logger.log(`📦 API v1 available at: http://localhost:${port}/v1`);
 }
 
 void bootstrap();

@@ -28,7 +28,10 @@ import type {
  * Provides endpoints for single and multiple image uploads.
  */
 @ApiTags('upload')
-@Controller('upload')
+@Controller({
+  path: 'upload',
+  version: '1',
+})
 export class UploadController {
   constructor(private readonly uploadService: UploadService) {}
 

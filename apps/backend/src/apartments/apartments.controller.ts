@@ -24,7 +24,10 @@ import {
 } from './dto';
 
 @ApiTags('apartments')
-@Controller('apartments')
+@Controller({
+  path: 'apartments',
+  version: '1',
+})
 export class ApartmentsController {
   constructor(private readonly apartmentsService: ApartmentsService) {}
 
