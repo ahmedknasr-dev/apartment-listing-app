@@ -5,7 +5,7 @@ import {
   SortField,
   SortOrder,
 } from '@apartment-listing/shared';
-import { Type } from 'class-transformer';
+import { Transform, Type } from 'class-transformer';
 import {
   IsBoolean,
   IsEnum,
@@ -135,7 +135,12 @@ export class QueryApartmentDto implements SharedQueryDto {
     example: true,
   })
   @IsOptional()
-  @Type(() => Boolean)
+  @Transform(({ value }) => {
+    if (value === 'true') return true;
+    if (value === 'false') return false;
+    if (typeof value === 'boolean') return value;
+    return undefined;
+  })
   @IsBoolean()
   available?: boolean;
 
