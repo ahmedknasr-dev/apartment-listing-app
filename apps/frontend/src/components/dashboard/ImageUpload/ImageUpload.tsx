@@ -8,9 +8,10 @@ interface ImagePreview {
   previewUrl: string;
 }
 
-export default function ImageUpload({ images, onChange, disabled }: ImageUploadProps) {
+export default function ImageUpload({ images, onChange, onImagesChange, disabled }: ImageUploadProps) {
   const [previews, setPreviews] = useState<ImagePreview[]>([]);
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
+  const [existingImages, setExistingImages] = useState<string[]>(images || []);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   // Initialize previews from existing images (for edit mode)
@@ -21,6 +22,7 @@ export default function ImageUpload({ images, onChange, disabled }: ImageUploadP
         previewUrl: getFullImageUrl(url),
       }));
       setPreviews(existingPreviews);
+      setExistingImages(images);
     }
   }, [images, previews.length]);
 
@@ -61,6 +63,13 @@ export default function ImageUpload({ images, onChange, disabled }: ImageUploadP
         setSelectedFiles(updatedFiles);
         onChange(updatedFiles);
       }
+    } else {
+      // Removing an existing image URL
+      // Find the original URL from the images array
+      const existingImageIndex = previews.slice(0, index + 1).filter((p) => !p.file).length - 1;
+      const updatedExistingImages = existingImages.filter((_, i) => i !== existingImageIndex);
+      setExistingImages(updatedExistingImages);
+      onImagesChange(updatedExistingImages);
     }
 
     const newPreviews = previews.filter((_, i) => i !== index);

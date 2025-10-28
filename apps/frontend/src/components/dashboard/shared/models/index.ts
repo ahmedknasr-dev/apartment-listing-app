@@ -52,6 +52,7 @@ export interface ApartmentModalProps {
 export interface ImageUploadProps {
   images: string[];
   onChange: (files: File[]) => void;
+  onImagesChange: (images: string[]) => void;
   disabled?: boolean;
 }
 

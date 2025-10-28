@@ -308,6 +308,7 @@ export default function ApartmentForm({ apartment, onSubmit, onCancel, isLoading
           <ImageUpload
             images={formData.images || []}
             onChange={handleFilesChange}
+            onImagesChange={(updatedImages) => handleChange('images', updatedImages)}
             disabled={isLoading || isUploading}
           />
         </Col>
